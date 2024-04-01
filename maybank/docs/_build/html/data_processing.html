@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>data_processing package &mdash; Customer Segementation 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="feature_engineering package" href="feature_engineering.html" />
+    <link rel="prev" title="src" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Customer Segementation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">data_processing package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-src.data_processing.data_loading">data_processing.data_loading module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_loading.load_catalog"><code class="docutils literal notranslate"><span class="pre">load_catalog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_loading.load_meta_data"><code class="docutils literal notranslate"><span class="pre">load_meta_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_loading.load_processed_data"><code class="docutils literal notranslate"><span class="pre">load_processed_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_loading.load_raw_data"><code class="docutils literal notranslate"><span class="pre">load_raw_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-src.data_processing.data_preprocessing">data_processing.data_preprocessing module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_preprocessing.convert_c_seg_to_binary"><code class="docutils literal notranslate"><span class="pre">convert_c_seg_to_binary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_preprocessing.convert_float64_to_float32"><code class="docutils literal notranslate"><span class="pre">convert_float64_to_float32()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_preprocessing.drop_outliers"><code class="docutils literal notranslate"><span class="pre">drop_outliers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_preprocessing.impute_missing_data"><code class="docutils literal notranslate"><span class="pre">impute_missing_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_preprocessing.perform_eda_with_sweetviz"><code class="docutils literal notranslate"><span class="pre">perform_eda_with_sweetviz()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-src.data_processing.data_sampling">data_processing.data_sampling module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.data_processing.data_sampling.resample_data"><code class="docutils literal notranslate"><span class="pre">resample_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-src.data_processing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="feature_engineering.html">feature_engineering package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modeling.html">modeling package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipelines.html">pipelines package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Customer Segementation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+      <li class="breadcrumb-item active">data_processing package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/data_processing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-processing-package">
+<h1>data_processing package<a class="headerlink" href="#data-processing-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-src.data_processing.data_loading">
+<span id="data-processing-data-loading-module"></span><h2>data_processing.data_loading module<a class="headerlink" href="#module-src.data_processing.data_loading" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_loading.load_catalog">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_loading.</span></span><span class="sig-name descname"><span class="pre">load_catalog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/data_processing/data_loading.html#load_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_loading.load_catalog" title="Link to this definition"></a></dt>
+<dd><p>Load catalog data from a YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>catalog_file_path</strong> (<em>str</em>) – Path to the catalog YAML file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loaded catalog data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_loading.load_meta_data">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_loading.</span></span><span class="sig-name descname"><span class="pre">load_meta_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/data_processing/data_loading.html#load_meta_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_loading.load_meta_data" title="Link to this definition"></a></dt>
+<dd><p>Load meta data using information from the catalog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>catalog_data</strong> (<em>dict</em>) – Catalog data containing information about the meta data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loaded meta data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_loading.load_processed_data">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_loading.</span></span><span class="sig-name descname"><span class="pre">load_processed_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/data_processing/data_loading.html#load_processed_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_loading.load_processed_data" title="Link to this definition"></a></dt>
+<dd><p>Load processed data using information from the catalog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>catalog_data</strong> (<em>dict</em>) – Catalog data containing information about the processsed data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loaded processed data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_loading.load_raw_data">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_loading.</span></span><span class="sig-name descname"><span class="pre">load_raw_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/data_processing/data_loading.html#load_raw_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_loading.load_raw_data" title="Link to this definition"></a></dt>
+<dd><p>Load raw data using information from the catalog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>catalog_data</strong> (<em>dict</em>) – Catalog data containing information about the raw data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loaded raw data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.data_processing.data_preprocessing">
+<span id="data-processing-data-preprocessing-module"></span><h2>data_processing.data_preprocessing module<a class="headerlink" href="#module-src.data_processing.data_preprocessing" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_preprocessing.convert_c_seg_to_binary">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_preprocessing.</span></span><span class="sig-name descname"><span class="pre">convert_c_seg_to_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/data_processing/data_preprocessing.html#convert_c_seg_to_binary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_preprocessing.convert_c_seg_to_binary" title="Link to this definition"></a></dt>
+<dd><p>Convert the ‘C_seg’ column in the DataFrame to binary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – Input DataFrame containing the ‘C_seg’ column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>DataFrame with the ‘C_seg’ column converted to binary:</dt><dd><ul class="simple">
+<li><p>1 if ‘C_seg’ is ‘AFFLUENT’.</p></li>
+<li><p>0 otherwise.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_preprocessing.convert_float64_to_float32">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_preprocessing.</span></span><span class="sig-name descname"><span class="pre">convert_float64_to_float32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/data_processing/data_preprocessing.html#convert_float64_to_float32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_preprocessing.convert_float64_to_float32" title="Link to this definition"></a></dt>
+<dd><p>Convert float64 columns to float32 for efficiency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – Input DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with float64 columns converted to float32.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_preprocessing.drop_outliers">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_preprocessing.</span></span><span class="sig-name descname"><span class="pre">drop_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/data_processing/data_preprocessing.html#drop_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_preprocessing.drop_outliers" title="Link to this definition"></a></dt>
+<dd><p>Drop outliers from specified numerical columns using z-score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input DataFrame.</p></li>
+<li><p><strong>num_columns</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of numerical column names to be processed.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – Z-score threshold for outlier detection. Default is 3.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with outliers removed from specified columns.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_preprocessing.impute_missing_data">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_preprocessing.</span></span><span class="sig-name descname"><span class="pre">impute_missing_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/data_processing/data_preprocessing.html#impute_missing_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_preprocessing.impute_missing_data" title="Link to this definition"></a></dt>
+<dd><p>Impute missing values in the DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – Input DataFrame containing missing values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with missing values imputed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_preprocessing.perform_eda_with_sweetviz">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_preprocessing.</span></span><span class="sig-name descname"><span class="pre">perform_eda_with_sweetviz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_feat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">html_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/data_processing/data_preprocessing.html#perform_eda_with_sweetviz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_preprocessing.perform_eda_with_sweetviz" title="Link to this definition"></a></dt>
+<dd><p>Perform Exploratory Data Analysis (EDA) using Sweetviz library and optionally save the report to an HTML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing the dataset for analysis.</p></li>
+<li><p><strong>target_feat</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the target feature. Defaults to None.</p></li>
+<li><p><strong>html_file_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save the HTML report. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.data_processing.data_sampling">
+<span id="data-processing-data-sampling-module"></span><h2>data_processing.data_sampling module<a class="headerlink" href="#module-src.data_processing.data_sampling" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.data_processing.data_sampling.resample_data">
+<span class="sig-prename descclassname"><span class="pre">src.data_processing.data_sampling.</span></span><span class="sig-name descname"><span class="pre">resample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categorical_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/data_processing/data_sampling.html#resample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.data_processing.data_sampling.resample_data" title="Link to this definition"></a></dt>
+<dd><p>Apply RandomUnderSampler and SMOTENC to the DataFrame to balance the dataset.
+Will apply undersampling first before oversampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame containing features and the target variable.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – The name of the target column.</p></li>
+<li><p><strong>categorical_features</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of column names for categorical features.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A tuple containing the resampled features DataFrame and</dt><dd><p>the resampled target Series.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[pd.DataFrame, pd.Series]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.data_processing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.data_processing" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="feature_engineering.html" class="btn btn-neutral float-right" title="feature_engineering package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Samuel SIM.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

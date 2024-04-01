@@ -1,0 +1,2 @@
+models:
+  xgboost: maybank/data/models/xgboost_model_20240331_225922.pkl

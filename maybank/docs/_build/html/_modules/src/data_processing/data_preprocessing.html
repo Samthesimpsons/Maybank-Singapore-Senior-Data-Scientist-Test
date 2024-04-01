@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.data_processing.data_preprocessing &mdash; Customer Segementation 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Customer Segementation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Customer Segementation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">src.data_processing.data_preprocessing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for src.data_processing.data_preprocessing</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sweetviz</span> <span class="k">as</span> <span class="nn">sv</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+
+
+<div class="viewcode-block" id="convert_c_seg_to_binary">
+<a class="viewcode-back" href="../../../data_processing.html#src.data_processing.data_preprocessing.convert_c_seg_to_binary">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_c_seg_to_binary</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert the &#39;C_seg&#39; column in the DataFrame to binary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Input DataFrame containing the &#39;C_seg&#39; column.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: DataFrame with the &#39;C_seg&#39; column converted to binary:</span>
+<span class="sd">                      - 1 if &#39;C_seg&#39; is &#39;AFFLUENT&#39;.</span>
+<span class="sd">                      - 0 otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_copy</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">df_copy</span><span class="p">[</span><span class="s2">&quot;C_seg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_copy</span><span class="p">[</span><span class="s2">&quot;C_seg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;AFFLUENT&quot;</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_copy</span></div>
+
+
+
+<div class="viewcode-block" id="perform_eda_with_sweetviz">
+<a class="viewcode-back" href="../../../data_processing.html#src.data_processing.data_preprocessing.perform_eda_with_sweetviz">[docs]</a>
+<span class="k">def</span> <span class="nf">perform_eda_with_sweetviz</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">target_feat</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">html_file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform Exploratory Data Analysis (EDA) using Sweetviz library and optionally save the report to an HTML file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas.DataFrame): The DataFrame containing the dataset for analysis.</span>
+<span class="sd">        target_feat (str, optional): The name of the target feature. Defaults to None.</span>
+<span class="sd">        html_file_path (str, optional): Path to save the HTML report. Defaults to None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">eda_report</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">target_feat</span><span class="o">=</span><span class="n">target_feat</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">html_file_path</span><span class="p">:</span>
+        <span class="n">eda_report</span><span class="o">.</span><span class="n">show_html</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">html_file_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">eda_report</span><span class="o">.</span><span class="n">show_notebook</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="drop_outliers">
+<a class="viewcode-back" href="../../../data_processing.html#src.data_processing.data_preprocessing.drop_outliers">[docs]</a>
+<span class="k">def</span> <span class="nf">drop_outliers</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">num_columns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Drop outliers from specified numerical columns using z-score.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): The input DataFrame.</span>
+<span class="sd">        num_columns (List[str]): List of numerical column names to be processed.</span>
+<span class="sd">        threshold (float): Z-score threshold for outlier detection. Default is 3.0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: DataFrame with outliers removed from specified columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">curr_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_df</span><span class="p">)</span>
+    <span class="n">curr_len_1_label</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_df</span><span class="p">[</span><span class="n">new_df</span><span class="p">[</span><span class="s2">&quot;C_seg&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">curr_len_0_label</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_df</span><span class="p">[</span><span class="n">new_df</span><span class="p">[</span><span class="s2">&quot;C_seg&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">num_columns</span><span class="p">:</span>
+        <span class="n">z_scores</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">(</span><span class="n">new_df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+
+        <span class="n">old_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_df</span><span class="p">)</span>
+
+        <span class="n">abs_z_scores</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z_scores</span><span class="p">)</span>
+
+        <span class="n">filtered_entries</span> <span class="o">=</span> <span class="n">abs_z_scores</span> <span class="o">&lt;</span> <span class="n">threshold</span>
+
+        <span class="n">new_df</span> <span class="o">=</span> <span class="n">new_df</span><span class="p">[</span><span class="n">filtered_entries</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dropped </span><span class="si">{</span><span class="n">old_len</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">new_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> observations for feature: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">new_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_df</span><span class="p">)</span>
+    <span class="n">new_len_1_label</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_df</span><span class="p">[</span><span class="n">new_df</span><span class="p">[</span><span class="s2">&quot;C_seg&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">new_len_0_label</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_df</span><span class="p">[</span><span class="n">new_df</span><span class="p">[</span><span class="s2">&quot;C_seg&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Total: Dropped </span><span class="si">{</span><span class="n">curr_len</span><span class="o">-</span><span class="n">new_len</span><span class="si">}</span><span class="s2"> observations, </span><span class="si">{</span><span class="n">curr_len_1_label</span><span class="o">-</span><span class="n">new_len_1_label</span><span class="si">}</span><span class="s2"> for 1, </span><span class="si">{</span><span class="n">curr_len_0_label</span><span class="o">-</span><span class="n">new_len_0_label</span><span class="si">}</span><span class="s2"> for 0 label.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;New 1 lable count: </span><span class="si">{</span><span class="n">new_len_1_label</span><span class="si">}</span><span class="s2">, New 0 label count: </span><span class="si">{</span><span class="n">new_len_0_label</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_df</span></div>
+
+
+
+<div class="viewcode-block" id="impute_missing_data">
+<a class="viewcode-back" href="../../../data_processing.html#src.data_processing.data_preprocessing.impute_missing_data">[docs]</a>
+<span class="k">def</span> <span class="nf">impute_missing_data</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Impute missing values in the DataFrame.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Input DataFrame containing missing values.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: DataFrame with missing values imputed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;C_EDU&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;C_EDU&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;Not Provided&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;C_HSE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;C_HSE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;Not Provided&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;gn_occ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;gn_occ&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;Not Provided&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;CC_AVE_copy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
+        <span class="s2">&quot;CC_AVE&quot;</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># To be used in feature engineering step later</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;CC_LMT_copy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
+        <span class="s2">&quot;CC_LMT&quot;</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># To be used in feature engineering step later</span>
+
+    <span class="n">incm_typ_mode</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;INCM_TYP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;INCM_TYP&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;INCM_TYP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">incm_typ_mode</span><span class="p">)</span>
+
+    <span class="n">zero_impute_cols</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;PC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CASATD_CNT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MTHCASA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MAXCASA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MINCASA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DRvCR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MTHTD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MAXTD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UT_AVE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MAXUT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;N_FUNDS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pur_price_avg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MAX_MTH_TRN_AMT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MIN_MTH_TRN_AMT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AVG_TRN_AMT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ANN_TRN_AMT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ANN_N_TRX&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;HL_tag&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AL_tag&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CC_LMT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CC_AVE&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">zero_impute_cols</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="convert_float64_to_float32">
+<a class="viewcode-back" href="../../../data_processing.html#src.data_processing.data_preprocessing.convert_float64_to_float32">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_float64_to_float32</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert float64 columns to float32 for efficiency.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Input DataFrame.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: DataFrame with float64 columns converted to float32.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">float64_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;float64&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">float64_cols</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Samuel SIM.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

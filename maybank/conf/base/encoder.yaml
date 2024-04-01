@@ -1,0 +1,5 @@
+encoders:
+  C_EDU: maybank/data/models/C_EDU_encoder_20240331_225112.pkl
+  C_HSE: maybank/data/models/C_HSE_encoder_20240331_225112.pkl
+  INCM_TYP: maybank/data/models/INCM_TYP_encoder_20240331_225111.pkl
+  gn_occ: maybank/data/models/gn_occ_encoder_20240331_225112.pkl

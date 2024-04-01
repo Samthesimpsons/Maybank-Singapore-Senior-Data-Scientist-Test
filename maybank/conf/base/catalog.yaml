@@ -1,0 +1,12 @@
+meta_data:
+  filepath: maybank/data/raw/metadata.csv
+  type: pandas.CSVDataSet
+predicted_data:
+  filepath: maybank/data/predicted/predicted_data.csv
+  type: pandas.CSVDataSet
+processed_data:
+  filepath: maybank/data/preprocessed/processed_data.csv
+  type: pandas.CSVDataSet
+raw_data:
+  filepath: maybank/data/raw/raw_data.csv
+  type: pandas.CSVDataSet
