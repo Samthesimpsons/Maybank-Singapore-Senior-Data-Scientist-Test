@@ -1,5 +1,7 @@
 # Bank Customer Segmentation
 
+My attempt landed me the next stage of interview for Senior DS Role.
+
 ## Business Problem Overview
 
 The bank aims to increase its customer base and revenue by identifying potential affluent customers within its Existing To Bank (ETB) segment. By upgrading these customers from normal to affluent status, the bank can offer tailored products and services to enhance satisfaction and drive revenue growth.
