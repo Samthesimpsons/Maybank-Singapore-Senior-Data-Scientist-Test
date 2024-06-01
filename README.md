@@ -1,6 +1,6 @@
 # Bank Customer Segmentation
 
-My attempt landed me the next stage of interview for Senior DS Role.
+My attempt landed me the next stage of interview for Senior DS Role, which I decline to proceed further.
 
 ## Business Problem Overview
 
